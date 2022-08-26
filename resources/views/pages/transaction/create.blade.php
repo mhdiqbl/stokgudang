@@ -8,7 +8,7 @@
     <script src="{{ asset('admin/vendors/select2/dist/js/select2.full.min.js') }}"></script>
     <script>
         $(document).ready(function() {
-            $('#categories_id').select2();
+            $('#products_id').select2();
         });
     </script>
 @endsection
@@ -40,33 +40,34 @@
                             </div>
                         @endif
                         <div class="item form-group">
-                            <label class="col-form-label col-md-4 col-sm-3 label-align" for="nama_barang">Nama Barang
+                            <label class="col-form-label col-md-4 col-sm-3 label-align" for="products_id">Product
                             </label>
                             <div class="col-md-6 col-sm-6 ">
-                                <input type="text" class="form-control col-7" name="nama_barang" id="nama_barang"
-                                    value="{{ old('nama_barang') }}" required>
-                            </div>
-                        </div>
-                        <div class="item form-group">
-                            <label class="col-form-label col-md-4 col-sm-3 label-align" for="stok">Stok
-                            </label>
-                            <div class="col-md-6 col-sm-6 ">
-                                <input type="text" class="form-control col-7" name="stok" id="stok"
-                                    value="{{ old('stok') }}" required>
-                            </div>
-                        </div>
-                        <div class="item form-group">
-                            <label class="col-form-label col-md-4 col-sm-3 label-align" for="categories_id">Category
-                            </label>
-                            <div class="col-md-6 col-sm-6 ">
-                                <select class="form-control col-7" id="categories_id" name="categories_id"
-                                    value="{{ old('categories_id', '') }}">
-                                    @forelse ($category as $item)
-                                        <option value="{{ $item->id }}">{{ $item->jenis }}</option>
+                                <select class="form-control col-7" id="products_id" name="products_id"
+                                    value="{{ old('products_id', '') }}">
+                                    @forelse ($product as $item)
+                                        <option value="{{ $item->id }}">{{ $item->nama_barang }}</option>
                                     @empty
                                         <option value="">--Data Kosong--</option>
                                     @endforelse
                                 </select>
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label class="col-form-label col-md-4 col-sm-3 label-align" for="jumlah">Jumlah
+                            </label>
+                            <div class="col-md-6 col-sm-6 ">
+                                <input type="text" class="form-control col-7" name="jumlah" id="jumlah"
+                                    value="{{ old('jumlah') }}" required>
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label class="col-form-label col-md-4 col-sm-3 label-align" for="tanggal_transaksi">Tanggal
+                                transaksi
+                            </label>
+                            <div class="col-md-6 col-sm-6 ">
+                                <input type="date" class="form-control col-7" name="tanggal_transaksi"
+                                    id="tanggal_transaksi" value="{{ old('tanggal_transaksi') }}" required>
                             </div>
                         </div>
                         <div class="ln_solid"></div>

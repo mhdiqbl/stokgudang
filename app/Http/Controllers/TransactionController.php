@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 
 class TransactionController extends Controller
@@ -13,7 +15,8 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        //
+        $transaction = Transaction::all();
+        return view('pages.transaction.index', compact('transaction'));
     }
 
     /**
@@ -23,7 +26,9 @@ class TransactionController extends Controller
      */
     public function create()
     {
-        //
+        $product = Product::all();
+        $transaction = Transaction::all();
+        return view('pages.transaction.create', compact('transaction', 'product'));
     }
 
     /**
@@ -34,7 +39,15 @@ class TransactionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'products_id' => 'required',
+            'jumlah' => 'required',
+            'tanggal_transaksi' => 'required'
+        ]);
+        // return response()->json($request, 200);
+        Transaction::create($validatedData);
+
+        return redirect()->route('transaction.index');
     }
 
     /**
@@ -56,7 +69,9 @@ class TransactionController extends Controller
      */
     public function edit($id)
     {
-        //
+        $product = Product::all();
+        $transaction = Transaction::findOrFail($id);
+        return view('pages.transaction.edit', compact('transaction', 'product'));
     }
 
     /**
@@ -68,7 +83,15 @@ class TransactionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validatedData = $request->validate([
+            'products_id' => 'required',
+            'jumlah' => 'required',
+            'tanggal_transaksi' => 'required'
+        ]);
+        // return response()->json($request, 200);
+        $data = Transaction::findOrFail($id);
+        $data->update($validatedData);
+        return redirect()->route('transaction.index');
     }
 
     /**
@@ -79,6 +102,8 @@ class TransactionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $data = Transaction::findOrFail($id);
+        $data->delete();
+        return redirect()->route('transaction.index');
     }
 }
