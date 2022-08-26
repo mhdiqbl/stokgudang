@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\ProductController;
+use App\Models\Product;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +16,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('layouts.home');
 });
+
+Route::resource('product', ProductController::class);
+Route::resource('category', ProductController::class);
+Route::resource('product', ProductController::class);
