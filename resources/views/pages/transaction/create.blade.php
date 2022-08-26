@@ -19,7 +19,7 @@
         <div class="col-md-12 col-sm-12 ">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2>Add Product</small></h2>
+                    <h2>Add Transaction</small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                         </li>
@@ -28,7 +28,7 @@
                 </div>
                 <div class="x_content">
                     <br>
-                    <form id="demo-form2" method="post" action="{{ route('product.store') }}">
+                    <form id="demo-form2" method="post" action="{{ route('transaction.store') }}">
                         @csrf
                         @if ($errors->any())
                             <div class="alert alert-danger">

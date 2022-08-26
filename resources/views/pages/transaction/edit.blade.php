@@ -28,7 +28,9 @@
                 </div>
                 <div class="x_content">
                     <br>
-                    <form id="demo-form2" method="post" action="{{ route('product.store') }}">
+                    <form id="demo-form2" method="post" action="{{ route('product.update', $product->id) }}"
+                        enctype="multipart/form-data">
+                        @method('put')
                         @csrf
                         @if ($errors->any())
                             <div class="alert alert-danger">
@@ -44,7 +46,7 @@
                             </label>
                             <div class="col-md-6 col-sm-6 ">
                                 <input type="text" class="form-control col-7" name="nama_barang" id="nama_barang"
-                                    value="{{ old('nama_barang') }}" required>
+                                    value="{{ old('nama_barang', $product->nama_barang) }}" required>
                             </div>
                         </div>
                         <div class="item form-group">
@@ -52,7 +54,7 @@
                             </label>
                             <div class="col-md-6 col-sm-6 ">
                                 <input type="text" class="form-control col-7" name="stok" id="stok"
-                                    value="{{ old('stok') }}" required>
+                                    value="{{ old('stok', $product->stok) }}" required>
                             </div>
                         </div>
                         <div class="item form-group">
@@ -75,7 +77,7 @@
                                 <button type="reset" class="btn btn-warning"><i class="fa fa-undo">
                                         Reset</i></button>
                                 <button type="submit" class="btn btn-info"><i class="fa fa-plus-square">
-                                        Tambah</i></button>
+                                        Edit</i></button>
                             </div>
                         </div>
                     </form>

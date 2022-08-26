@@ -15,7 +15,7 @@ class CategoryController extends Controller
     public function index()
     {
         $category = Category::all();
-        return view('layouts.category.index', compact('category'));
+        return view('pages.category.index', compact('category'));
     }
 
     /**
@@ -25,7 +25,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        // $category = Category::all();
+        return view('pages.category.create');
     }
 
     /**
@@ -36,7 +37,13 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'jenis' => 'required'
+        ]);
+        // return response()->json($request, 200);
+        Category::create($validatedData);
+
+        return redirect()->route('category.index');
     }
 
     /**
@@ -58,7 +65,8 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        $category = Category::findOrFail($id);
+        return view('pages.category.edit', compact('category'));
     }
 
     /**
@@ -70,7 +78,14 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validatedData = $request->validate([
+            'jenis' => 'required',
+        ]);
+
+        $data = Category::findOrFail($id);
+        $data->update($validatedData);
+
+        return redirect()->route('category.index');
     }
 
     /**
