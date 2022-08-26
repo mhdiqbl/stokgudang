@@ -65,7 +65,7 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        //
+        
     }
 
     /**
@@ -76,7 +76,9 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        //
+        $category = Category::all();
+        $product = Product::findOrFail($id);
+        return view('pages.product.edit', compact('product','category'));
     }
 
     /**
@@ -88,7 +90,15 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validatedData = $request->validate([
+            'nama_barang' => 'string|required',
+            'stok' => 'required',
+            'categories_id' => 'exists:categories,id'
+        ]);
+        $data = Product::findOrFail($id);
+        // return response()->json($data, 200);
+        $data->update($validatedData);
+        return redirect()->route('product.index');
     }
 
     /**
@@ -99,6 +109,7 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $product = Product::findOrFail($id);
+        $product->delete();
     }
 }

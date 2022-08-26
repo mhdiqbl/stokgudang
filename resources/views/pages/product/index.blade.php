@@ -21,23 +21,65 @@
                                     style="width:100%">
                                     <thead>
                                         <tr>
+                                            <th>No</th>
                                             <th>ID Product</th>
                                             <th>Nama Product</th>
                                             <th>Stok</th>
                                             <th>Jenis Product</th>
                                             <th>Tgl Transaksi</th>
                                             <th>Jumlah Terjual</th>
+                                            <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($product as $item)
                                             <tr>
+                                                <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $item->id }}</td>
                                                 <td>{{ $item->nama_barang }}</td>
                                                 <td>{{ $item->stok }}</td>
                                                 <td>{{ $item->category->jenis }}</td>
-                                                <td>{{ $item->transaction[0]->tanggal_transaksi }}</td>
-                                                <td>{{ $item->transaction[0]->jumlah }}</td>
+                                                @if (isset($item->transaction[0]))
+                                                    <td>{{ $item->transaction[0]->tanggal_transaksi }}</td>
+                                                    <td>{{ $item->transaction[0]->jumlah }}</td>
+                                                @else
+                                                    <td>Null</td>
+                                                    <td>Null</td>
+                                                @endif
+
+                                                <td class="text-center">
+                                                    <div class="btn-group">
+                                                        <form method="post"
+                                                            action="{{ route('product.destroy', $item->id) }}">
+                                                            @csrf
+                                                            @method('delete')
+                                                            <div class="btn-group">
+                                                                {{-- <a href="{{ route('peralihan.create', $item->id_sertifikat) }}"
+                                                                        data-toggle="tooltip" data-placement="top"
+                                                                        name="edit" title="Peralihan"
+                                                                        class="btn btn-warning"><i class="fa fa-send"></i></a> --}}
+
+                                                                <a href="{{ route('product.edit', $item->id) }}"
+                                                                    data-toggle="tooltip" data-placement="top"
+                                                                    name="edit" title="Edit" class="btn btn-info"><i
+                                                                        class="fa fa-edit"></i></a>
+
+                                                                <button type="submit"
+                                                                    onclick="return confirm('YAKIN INGIN MENGHAPUS DATA?');"
+                                                                    name="hapus" data-toggle="tooltip"
+                                                                    data-placement="top" title="Delete"
+                                                                    class="btn btn-danger"><i
+                                                                        class="fa fa-trash"></i></button>
+
+                                                                {{-- <button id="delete-sertifikat" name="hapus"
+                                                                        data-id="{{ $item->id_sertifikat }}"
+                                                                        data-toggle="tooltip" data-placement="top"
+                                                                        title="Delete" class="btn btn-danger"><i
+                                                                            class="fa fa-trash"></i></button> --}}
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </td>
                                         @endforeach
                                         </tr>
                                     </tbody>
