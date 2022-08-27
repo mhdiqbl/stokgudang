@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="images/favicon.ico" type="image/ico" />
 
-    <title>SISTEM WARKAH BPN ACEH UTARA</title>
+    <title>STOK GUDANG</title>
 
     @include('partials._style')
 </head>
@@ -26,8 +26,8 @@
                             </a>
                         </div>
                         <div class="clearfix"></div>
-                        <h2>SISTEM WARKAH</h2>
-                        <h6>BPN ACEH UTARA</h6>
+                        <h2>STOK</h2>
+                        <h6>GUDANG</h6>
                     </div>
                     <div class="clearfix"></div>
 

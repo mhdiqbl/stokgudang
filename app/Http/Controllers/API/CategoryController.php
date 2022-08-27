@@ -3,30 +3,27 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Models\Transaction;
-use Illuminate\Http\Request;
+use App\Models\Category;
 use Illuminate\Database\QueryException;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
 
-class TransactionController extends Controller
+class CategoryController extends Controller
 {
     public function all()
     {
-        $transaction = Transaction::orderBy('tanggal_transaksi', 'ASC')->get();
+        $category = Category::orderBy('jenis', 'ASC')->get();
         $response = [
-            'message' => 'List transaksi order by date',
-            'data' => $transaction,
+            'message' => 'List category order by jenis',
+            'data' => $category,
         ];
         return response()->json($response, Response::HTTP_OK); //symfony sudah menyediakan code2 response yg banyak
     }
-
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'products_id' => 'required',
-            'jumlah' => 'required',
-            'tanggal_transaksi' => 'required'
+            'jenis' => 'required'
         ]);
         if($validator->fails()){
             return response()->json($validator->errors(), 
@@ -34,10 +31,10 @@ class TransactionController extends Controller
         }
 
         try {
-            $transaction = Transaction::create($request->all());
+            $category = Category::create($request->all());
             $response = [
-                'message' => 'Transaction created',
-                'data' => $transaction,
+                'message' => 'Category created',
+                'data' => $category,
             ];
 
             return response()->json($response, Response::HTTP_CREATED);
@@ -51,10 +48,10 @@ class TransactionController extends Controller
     public function destroy($id)
     {
         try{
-            $transaction = Transaction::findOrFail($id);
-            $transaction->delete();
+            $category = Category::findOrFail($id);
+            $category->delete();
             $response = [
-                'message' => 'transaction deleted',
+                'message' => 'Category deleted',
             ];
             return response()->json($response, Response::HTTP_OK);
         }catch (QueryException $e) {
@@ -67,20 +64,18 @@ class TransactionController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'products_id' => 'required',
-            'jumlah' => 'required',
-            'tanggal_transaksi' => 'required'
+            'jenis' => 'required'
         ]);
         if($validator->fails()){
             return response()->json($validator->errors(), 
             Response::HTTP_UNPROCESSABLE_ENTITY);
         }
         try {
-            $transaction = Transaction::findOrFail($id);
-            $transaction->update($validator);
+            $category = Category::findOrFail($id);
+            $category->update($validator);
             $response = [
-                'message' => 'Transaction has been updated',
-                'data' => $transaction,
+                'message' => 'Category has been updated',
+                'data' => $category,
             ];
 
             return response()->json($response, Response::HTTP_CREATED);
