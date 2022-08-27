@@ -49,9 +49,8 @@ class ProductController extends Controller
 
     public function destroy($id)
     {
-        $product = Product::findOrFail($id);
-        
         try{
+            $product = Product::findOrFail($id);
             $product->delete();
             $response = [
                 'message' => 'Product deleted',
@@ -62,6 +61,18 @@ class ProductController extends Controller
                 'message' => 'Failed ' . $e->errorInfo
             ]);
         }
+        // $data = $product->delete();
+
+        // if ($data) {
+        //     $response = [
+        //         'message' => 'Product deleted',
+        //     ];
+        //     return response()->json($response, Response::HTTP_OK);
+        // }else{
+        //     return response()->json([
+        //         'message' => 'Failed ',
+        //     ]);
+        // }
     }
 
     public function update(Request $request, $id)
